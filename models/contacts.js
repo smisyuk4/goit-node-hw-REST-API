@@ -4,11 +4,11 @@ const fs = require('fs').promises
 const contactsPath  = path.join('models', 'contacts.json')
 
 async function writeContact(path, content) {
-    try{
-        await fs.writeFile(path, JSON.stringify(content))   
-    } catch (error) {
-        console.log(error.message)
-    }
+  try{
+      await fs.writeFile(path, JSON.stringify(content))   
+  } catch (error) {
+      console.log(error.message)
+  }
 }
 
 const listContacts = async () => {
@@ -30,24 +30,24 @@ const getContactById = async (contactId) => {
 }
 
 const removeContact = async (contactId) => {
-  try {
-    const data = await listContacts()
+  const data = await listContacts()
 
-    const newArr = data.filter(({id}) => id !== contactId)
+  if (!data.some(({id}) => id === contactId)){
+    return false
+  }
 
-    if (newArr.length > 0) {
-      await writeContact(contactsPath, newArr)
-      return true
-    }
-
-    return false         
-} catch (error){
-    console.log(error.message)
-}
+  const newArr = data.filter(({id}) => id !== contactId)
+    await writeContact(contactsPath, newArr)
+  return true 
 }
 
 const addContact = async (body) => {
-  return 'hello addContact'
+  const data = await listContacts() 
+
+  const newArr = [...data, body]
+
+    await writeContact(contactsPath, newArr)
+  return newArr
 }
 
 const updateContact = async (contactId, body) => {
