@@ -71,9 +71,19 @@ router.delete('/:contactId', async (req, res, next) => {
 })
 
 router.put('/:contactId', async (req, res, next) => {
+  const contactId = req.params.contactId
+  const body = req.body
+
+  if (!body) {
+    return  res.status(400).json({ message: "missing fields" })
+  }  
+
   try{
-    const data = await updateContact()
-    res.status(200).send(data)
+    const data = await updateContact(contactId, body)
+    if (data) {
+      return res.status(200).json(data)
+    }
+    res.status(404).json({ message: "Not found" })
   } catch (error){
     res.json({ message: 'template message' })
   } 

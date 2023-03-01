@@ -3,7 +3,7 @@ const fs = require('fs').promises
 
 const contactsPath  = path.join('models', 'contacts.json')
 
-async function writeContact(path, content) {
+const writeContact = async (path, content) => {
   try{
       await fs.writeFile(path, JSON.stringify(content))   
   } catch (error) {
@@ -51,7 +51,36 @@ const addContact = async (body) => {
 }
 
 const updateContact = async (contactId, body) => {
-  return 'hello updateContact'
+  const data = await listContacts()
+
+  const contact = data.find(({id}) => id === contactId)
+
+  if (!contact) {
+    return false
+  }
+  
+  const {
+    name: oldName, 
+    email: oldEmail, 
+    phone: oldPhone,
+  } = contact  
+
+  const {
+    name: newName, 
+    email: newEmail, 
+    phone: newPhone,
+  } = body
+
+  const newContact = {
+    id: contactId,
+    name: newName || oldName,
+    email: newEmail || oldEmail, 
+    phone: newPhone || oldPhone,
+  }
+
+//  знайти індекс комірки контакту 
+//  замінити контакт за індексом
+  return newContact
 }
 
 module.exports = {
