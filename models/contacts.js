@@ -53,34 +53,28 @@ const addContact = async (body) => {
 const updateContact = async (contactId, body) => {
   const data = await listContacts()
 
-  const contact = data.find(({id}) => id === contactId)
+  let indexContact = null
+
+  const contact = data.find(({id}, idx) => {
+    indexContact = idx
+    return id === contactId
+  })
 
   if (!contact) {
     return false
   }
-  
-  const {
-    name: oldName, 
-    email: oldEmail, 
-    phone: oldPhone,
-  } = contact  
-
-  const {
-    name: newName, 
-    email: newEmail, 
-    phone: newPhone,
-  } = body
 
   const newContact = {
     id: contactId,
-    name: newName || oldName,
-    email: newEmail || oldEmail, 
-    phone: newPhone || oldPhone,
+    name: body.name || contact.name,
+    email: body.email || contact.email,
+    phone: body.phone || contact.phone,
   }
+  
+  data.splice(indexContact, 1, newContact)
 
-//  знайти індекс комірки контакту 
-//  замінити контакт за індексом
-  return newContact
+  await writeContact(contactsPath, data)
+  return data
 }
 
 module.exports = {
