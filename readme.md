@@ -37,3 +37,4 @@
 
 ## validation data:
 - `JOI` - [https://joi.dev/api/?v=17.8.1]
+- `Solution switch schema` - [https://stackoverflow.com/questions/59861503/joi-validator-conditional-schema]

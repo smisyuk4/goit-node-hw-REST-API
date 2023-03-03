@@ -1,10 +1,13 @@
 const express = require('express')
+const router = express.Router()
 const { listContacts, 
   getContactById,
   removeContact,
   addContact,
   updateContact } = require('../../models/contacts')
-const router = express.Router()
+const { schema } = require('./validationSchema')
+
+const TEMPLATE_MSG = 'Stand with Ukraine'
 
 router.get('/', async (req, res, next) => {
   try{
@@ -26,23 +29,17 @@ router.get('/:contactId', async (req, res, next) => {
 
     res.status(404).json({ message: 'Not found' })    
   } catch (error){
-    res.json({ message: 'template message' })    
+    res.json({ message: TEMPLATE_MSG })    
   } 
 })
 
 router.post('/', async (req, res, next) => {
   const {name, email, phone} = req.body
 
-  if (name === ''){
-    return res.status(400).json({ message: 'missing required name field' })
-  }
+  const { error } = schema.validate(req.body, { context: { requestMethod: req.method } });
 
-  if (email === ''){
-    return res.status(400).json({ message: 'missing required email field' })
-  }
-
-  if (phone === ''){
-    return res.status(400).json({ message: 'missing required phone field' })
+  if (error){
+    return res.status(400).json({ message: error.details[0].message })
   }
 
   const id = new Date().getTime().toString()
@@ -51,7 +48,7 @@ router.post('/', async (req, res, next) => {
     const data = await addContact({id, name, email, phone})
     res.status(201).send(data)
   } catch (error){
-    res.json({ message: 'template message' })
+    res.json({ message: TEMPLATE_MSG })
   } 
 })
 
@@ -66,7 +63,7 @@ router.delete('/:contactId', async (req, res, next) => {
     
     res.status(404).json({ message: "Not found" })
   } catch (error){
-    res.json({ message: 'template message' })
+    res.json({ message: TEMPLATE_MSG })
   } 
 })
 
@@ -74,8 +71,14 @@ router.put('/:contactId', async (req, res, next) => {
   const contactId = req.params.contactId
   const body = req.body
 
-  if (!body) {
+  if (Object.keys(body).length === 0) {
     return  res.status(400).json({ message: "missing fields" })
+  }  
+
+  const { error } = schema.validate(req.body, { context: { requestMethod: req.method } });
+
+  if (error){
+    return res.status(400).json({ message: error.details[0].message })
   }  
 
   try{
@@ -85,7 +88,7 @@ router.put('/:contactId', async (req, res, next) => {
     }
     res.status(404).json({ message: "Not found" })
   } catch (error){
-    res.json({ message: 'template message' })
+    res.json({ message: TEMPLATE_MSG })
   } 
 })
 
