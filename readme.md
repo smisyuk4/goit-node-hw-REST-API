@@ -29,3 +29,12 @@
 - `npm run start:dev` &mdash; старт сервера в режимі розробки (development)
 - `npm run lint` &mdash; запустити виконання перевірки коду з eslint, необхідно виконувати перед кожним PR та виправляти всі помилки лінтера
 - `npm lint:fix` &mdash; та ж перевірка лінтера, але з автоматичними виправленнями простих помилок
+
+## git commands:
+- `git checkout -b hw02-express` - створює нову гілку
+- `git checkout hw02-express` - перемикає на цю гілку
+- `git push oririn hw02-express` - відправляє локальні зміни на цю гілку
+
+## validation data:
+- `JOI` - [https://joi.dev/api/?v=17.8.1]
+- `Solution switch schema` - [https://stackoverflow.com/questions/59861503/joi-validator-conditional-schema]
