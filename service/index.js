@@ -12,7 +12,7 @@ const createContact = ({ title, text }) => {
   return Contacts.create({ title, text })
 }
 
-const updatecontact = (id, fields) => {
+const updateContact = (id, fields) => {
   return Contacts.findByIdAndUpdate({ _id: id }, fields, { new: true })
 }
 
@@ -24,6 +24,6 @@ module.exports = {
     getAllContacts,
     getContactById,
     createContact,
-    updatecontact,
+    updateContact,
     removeContact,
 }

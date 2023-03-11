@@ -7,7 +7,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-const routerApi = require('./app/contacts')
+const routerApi = require('./api')
 app.use('/api/contacts', routerApi)
 
 app.use((_, res, __) => {
@@ -32,12 +32,8 @@ app.use((err, _, res, __) => {
 const PORT = process.env.PORT || 3000;
 const uriDb = process.env.MONGO_URI;
 
-const connection = mongoose.connect(uriDb, {
-  promiseLibrary: global.Promise,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-});
+const connection = mongoose.connect(uriDb, {dbName: 'contacts'});
+mongoose.Promise = global.Promise;
 
 connection
   .then(() => {
@@ -48,33 +44,3 @@ connection
   .catch(err =>
     console.log(`Server not running. Error message: ${err.message}`),
   );
-
-
-
-
-
-// const { MongoClient } = require('mongodb');
-
-// const client = new MongoClient(process.env.MONGO_URI);
-// const dbName = 'db-contacts';
-
-// const start = async () => {
-//   await client.connect();
-//   console.log('Connected successfully to server');
-//   const db = client.db(dbName);
-//   const collection = db.collection('contacts');
-
-//   const contacts = await collection.find({}).toArray()
-//   console.log(contacts)
-
-//   app.listen(process.env.PORT, () => {
-//     console.log(`Server running. Use our API on port: ${process.env.PORT}`)
-//   })
-
-//   return 'done.';
-// }
-
-
-// start()
-
-
