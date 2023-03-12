@@ -27,6 +27,8 @@ const schema = Joi.when(Joi.ref("$requestMethod"), {
           .max(30)
           .pattern(/^[+]?\d{2,7}[(\- .\s]?\d{2,7}([)\- .\s]?\d{2,7})*$/)
           .required(),
+
+        favorite: Joi.boolean(),
         }),
     },
     {
@@ -50,7 +52,9 @@ const schema = Joi.when(Joi.ref("$requestMethod"), {
           .trim()
           .min(6)
           .max(30)
-          .pattern(/^[+]?\d{2,7}[(\- .\s]?\d{2,7}([)\- .\s]?\d{2,7})*$/),          
+          .pattern(/^[+]?\d{2,7}[(\- .\s]?\d{2,7}([)\- .\s]?\d{2,7})*$/),    
+          
+        favorite: Joi.boolean(),
       }),
     },
   ],

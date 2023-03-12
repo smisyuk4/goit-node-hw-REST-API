@@ -8,11 +8,15 @@ const getContactById = (id) => {
   return Contacts.findOne({ _id: id })
 }
 
-const createContact = ({ name, email, phone }) => {
-  return Contacts.create({ name, email, phone })
+const createContact = ({ name, email, phone, favorite }) => {
+  return Contacts.create({ name, email, phone, favorite })
 }
 
 const updateContact = (id, fields) => {
+  return Contacts.findByIdAndUpdate({ _id: id }, fields, { new: true })
+}
+
+const updateStatusContact = (id, fields) => {
   return Contacts.findByIdAndUpdate({ _id: id }, fields, { new: true })
 }
 
@@ -25,5 +29,6 @@ module.exports = {
     getContactById,
     createContact,
     updateContact,
+    updateStatusContact,
     removeContact,
 }

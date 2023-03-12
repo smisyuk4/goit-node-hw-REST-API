@@ -34,8 +34,6 @@ const uriDb = process.env.MONGO_URI;
 
 const connection = mongoose.connect(uriDb, {
   dbName: 'db-contacts',
-  retryWrites: true,
-  // w: "majority",
 });
 mongoose.Promise = global.Promise;
 
