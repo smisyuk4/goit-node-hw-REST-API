@@ -32,7 +32,11 @@ app.use((err, _, res, __) => {
 const PORT = process.env.PORT || 3000;
 const uriDb = process.env.MONGO_URI;
 
-const connection = mongoose.connect(uriDb, {dbName: 'contacts'});
+const connection = mongoose.connect(uriDb, {
+  dbName: 'db-contacts',
+  retryWrites: true,
+  // w: "majority",
+});
 mongoose.Promise = global.Promise;
 
 connection
