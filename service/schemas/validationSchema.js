@@ -10,7 +10,12 @@ const schema = Joi.when(Joi.ref("$requestMethod"), {
           .trim()
           .min(3)
           .max(30)
-          .required(),
+          .required()
+          .messages({
+            'string.min': `name should have a minimum length of {#limit}`,
+            'string.max': `name should have a maximum length of {#limit}`,
+            'any.required': `missing required name field`
+          }),
 
         email: Joi.string()
           .empty('')
@@ -18,7 +23,13 @@ const schema = Joi.when(Joi.ref("$requestMethod"), {
           .min(6)
           .max(30)
           .email()
-          .required(),
+          .required()
+          .messages({
+            'string.min': `email should have a minimum length of {#limit}`,
+            'string.max': `email should have a maximum length of {#limit}`,
+            'string.email': `email field must be a valid`,
+            'any.required': `missing required email field`
+          }),
 
         phone: Joi.string().trim()
           .empty('')
@@ -26,7 +37,14 @@ const schema = Joi.when(Joi.ref("$requestMethod"), {
           .min(6)
           .max(30)
           .pattern(/^[+]?\d{2,7}[(\- .\s]?\d{2,7}([)\- .\s]?\d{2,7})*$/)
-          .required(),
+          .required()
+          .messages({
+            'string.min': `phone should have a minimum length of {#limit}`,
+            'string.max': `phone should have a maximum length of {#limit}`,
+            'any.required': `missing required phone field`
+          }),
+
+        favorite: Joi.boolean(),
         }),
     },
     {
@@ -50,7 +68,9 @@ const schema = Joi.when(Joi.ref("$requestMethod"), {
           .trim()
           .min(6)
           .max(30)
-          .pattern(/^[+]?\d{2,7}[(\- .\s]?\d{2,7}([)\- .\s]?\d{2,7})*$/),          
+          .pattern(/^[+]?\d{2,7}[(\- .\s]?\d{2,7}([)\- .\s]?\d{2,7})*$/),    
+          
+        favorite: Joi.boolean(),
       }),
     },
   ],
