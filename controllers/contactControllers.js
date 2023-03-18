@@ -1,10 +1,16 @@
-const service = require('../service')
+const { getAllContacts,
+  getContactById, 
+  createContact,
+  removeContact,
+  updateContact,
+  updateStatusContact,
+} = require('../service/contactServices')
 
 const { schema } = require('../service/schemas/validationSchema')
 
 const get = async (req, res, next) => {
   try{
-    const results = await service.getAllContacts()
+    const results = await getAllContacts()
     res.json({
         status: 'success',
         code: 200,
@@ -21,7 +27,7 @@ const get = async (req, res, next) => {
 const getById = async (req, res, next) => {
   const contactId = req.params.contactId
   try{
-    const results = await service.getContactById(contactId)
+    const results = await getContactById(contactId)
 
     if(results){
       return res.json({
@@ -59,7 +65,7 @@ const create = async (req, res, next) => {
     }
 
   try{
-        const result = await service.createContact({name, email, phone, favorite})
+        const result = await createContact({name, email, phone, favorite})
         res.status(201).json({
             status: 'success',
             code: 201,
@@ -74,7 +80,7 @@ const create = async (req, res, next) => {
 const remove = async (req, res, next) => {
   const contactId = req.params.contactId
   try{
-    const result = await service.removeContact(contactId)
+    const result = await removeContact(contactId)
 
     if (result) {
         return res.json({
@@ -119,7 +125,7 @@ const update = async (req, res, next) => {
   }  
 
   try{
-    const result = await service.updateContact(contactId, body)
+    const result = await updateContact(contactId, body)
     if (result) {
       return res.json({
         status: 'success',
@@ -152,7 +158,7 @@ const updateStatus = async (req, res, next) => {
   }
 
   try{
-    const result = await service.updateStatusContact(contactId, {favorite})
+    const result = await updateStatusContact(contactId, {favorite})
     if (result) {
       return res.json({
         status: 'success',
