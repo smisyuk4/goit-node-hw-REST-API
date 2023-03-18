@@ -5,11 +5,11 @@ const userValidSchema = Joi.object({
         .empty('')
         .trim()
         .min(6)
-        .max(30)
+        // .max(30)
         .required()
         .messages({
             'string.min': `password should have a minimum length of {#limit}`,
-            'string.max': `password should have a maximum length of {#limit}`,
+            // 'string.max': `password should have a maximum length of {#limit}`,
             'any.required': `missing required password field`
           }),
 
