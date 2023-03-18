@@ -6,7 +6,7 @@ const { getAllContacts,
   updateStatusContact,
 } = require('../service/contactServices')
 
-const { schema } = require('../service/schemas/validationSchema')
+const { contactValidSchema } = require('../service/schemas/contactValidSchema')
 
 const get = async (req, res, next) => {
   try{
@@ -54,7 +54,7 @@ const getById = async (req, res, next) => {
 const create = async (req, res, next) => {
   const {name, email, phone, favorite=false} = req.body
 
-  const { error } = schema.validate(req.body, { context: { requestMethod: req.method } });
+  const { error } = contactValidSchema.validate(req.body, { context: { requestMethod: req.method } });
 
   if (error){
     return res.status(400).json({
@@ -114,7 +114,7 @@ const update = async (req, res, next) => {
       })
   }  
 
-  const { error } = schema.validate(req.body, { context: { requestMethod: req.method } });
+  const { error } = contactValidSchema.validate(req.body, { context: { requestMethod: req.method } });
 
   if (error){
     return res.status(400).json({

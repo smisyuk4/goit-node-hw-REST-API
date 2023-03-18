@@ -46,3 +46,9 @@ npm i mongodb
 ## data base driver
 - `mongoose` - [https://mongoosejs.com/docs/schematypes.html#objectids]
 npm i mongoose
+
+## JWT
+- `bcrypt` - [https://www.npmjs.com/package/bcrypt]
+npm i bcrypt
+- `jsonwebtoken` - [https://www.npmjs.com/package/jsonwebtoken]
+npm i jsonwebtoken

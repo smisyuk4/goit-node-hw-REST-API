@@ -7,20 +7,31 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-const routerApi = require('./routes/contactRoutes')
-app.use('/api/contacts', routerApi)
+const { contactRouter } = require('./routes/contactRoutes')
+app.use('/api/contacts', contactRouter)
+
+const { userRouter } = require('./routes/userRoutes')
+app.use('/users', userRouter)
 
 app.use((_, res, __) => {
   res.status(404).json({
     status: 'error',
     code: 404,
-    message: 'Use api on routes: /api/contacts',
+    message: 'Use api on routes:',
     data: 'Not found',
   });
 });
 
 app.use((err, _, res, __) => {
-  console.log(err.stack);
+  console.log(err.message)
+  res.status(409).json({
+    status: 'Conflict',
+    code: 409,
+    message: "Email in use",
+  });
+});
+
+app.use((err, _, res, __) => {
   res.status(500).json({
     status: 'fail',
     code: 500,

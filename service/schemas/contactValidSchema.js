@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const schema = Joi.when(Joi.ref("$requestMethod"), {
+const contactValidSchema = Joi.when(Joi.ref("$requestMethod"), {
   switch: [
     {
       is: "POST",
@@ -77,5 +77,5 @@ const schema = Joi.when(Joi.ref("$requestMethod"), {
 });
 
 module.exports = {
-    schema
+  contactValidSchema
 }
