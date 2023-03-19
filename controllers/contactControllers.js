@@ -9,9 +9,10 @@ const { getAllContacts,
 const { contactValidSchema } = require('../service/schemas/contactValidSchema')
 
 const get = async (req, res, next) => {
-  console.log(req.user)
+  const { _id: owner } = req.user
+
   try{
-    const results = await getAllContacts()
+    const results = await getAllContacts(owner)
     res.json({
         status: 'success',
         code: 200,
@@ -27,8 +28,9 @@ const get = async (req, res, next) => {
 
 const getById = async (req, res, next) => {
   const contactId = req.params.contactId
+  const { _id: owner } = req.user
   try{
-    const results = await getContactById(contactId)
+    const results = await getContactById(contactId, owner)
 
     if(results){
       return res.json({
@@ -53,7 +55,8 @@ const getById = async (req, res, next) => {
 }
 
 const create = async (req, res, next) => {
-  const {name, email, phone, favorite=false} = req.body
+  const { name, email, phone, favorite=false } = req.body
+  const { _id: owner } = req.user
 
   const { error } = contactValidSchema.validate(req.body, { context: { requestMethod: req.method } });
 
@@ -66,7 +69,7 @@ const create = async (req, res, next) => {
     }
 
   try{
-        const result = await createContact({name, email, phone, favorite})
+        const result = await createContact({ name, email, phone, favorite }, owner )
         res.status(201).json({
             status: 'success',
             code: 201,
@@ -80,8 +83,9 @@ const create = async (req, res, next) => {
 
 const remove = async (req, res, next) => {
   const contactId = req.params.contactId
+  const { _id: owner } = req.user
   try{
-    const result = await removeContact(contactId)
+    const result = await removeContact(contactId, owner)
 
     if (result) {
         return res.json({
@@ -106,6 +110,7 @@ const remove = async (req, res, next) => {
 const update = async (req, res, next) => {
   const contactId = req.params.contactId
   const body = req.body
+  const { _id: owner } = req.user
 
   if (Object.keys(body).length === 0) {
     return res.status(400).json({
@@ -126,7 +131,7 @@ const update = async (req, res, next) => {
   }  
 
   try{
-    const result = await updateContact(contactId, body)
+    const result = await updateContact(contactId, body, owner)
     if (result) {
       return res.json({
         status: 'success',
@@ -148,7 +153,8 @@ const update = async (req, res, next) => {
 
 const updateStatus = async (req, res, next) => {
   const contactId = req.params.contactId
-  const {favorite} = req.body
+  const { favorite } = req.body
+  const { _id: owner } = req.user
 
   if (!favorite) {
     return res.status(400).json({
@@ -159,7 +165,7 @@ const updateStatus = async (req, res, next) => {
   }
 
   try{
-    const result = await updateStatusContact(contactId, {favorite})
+    const result = await updateStatusContact(contactId, {favorite}, owner)
     if (result) {
       return res.json({
         status: 'success',

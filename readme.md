@@ -3,9 +3,9 @@ POST `/users/register` - створити користувача
 POST `/users/login` - увійти
 
 ## Routes contacts
-GET `/api/contacts/` - вязти всі контакти
+GET `/api/contacts/` - взяти всі контакти
 GET `/api/contacts/:contactId` - взяти один контакт по ід
-POST `/api/contacts/` - стврити контакт
+POST `/api/contacts/` - створити контакт
 PUT `/api/contacts/:contactId` - оновити інформацію контакта по ід
 DELETE `/api/contacts/:contactId` - видалити контакт по ід
 PATCH `/api/contacts/:contactId/favorite` - змінити статус контакта по ід
