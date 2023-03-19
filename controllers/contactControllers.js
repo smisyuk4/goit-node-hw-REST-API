@@ -9,6 +9,7 @@ const { getAllContacts,
 const { contactValidSchema } = require('../service/schemas/contactValidSchema')
 
 const get = async (req, res, next) => {
+  console.log(req.user)
   try{
     const results = await getAllContacts()
     res.json({
