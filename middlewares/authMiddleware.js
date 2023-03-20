@@ -1,15 +1,17 @@
 const jwt = require('jsonwebtoken')
+const { NotAuthorizedError } = require('../helpers/error')
+
 
 const authMiddleware = async (req, res, next) =>{
-    // eslint-disable-next-line no-unused-vars
-    const [ tokenType, token ] = req.headers.authorization.split(' ');
+    const { authorization = '' } = req.headers
+    const [ tokenType, token ] = authorization.split(' ')
+
+    if(tokenType !== "Bearer"){
+        throw new NotAuthorizedError(`Not authorized`)
+    }
 
     if(!token){
-        return res.status(401).json({
-            Status: 'Unauthorized',
-            Code: 401,
-            Message: `Not authorized`,
-        })  
+        throw new NotAuthorizedError(`Not authorized`)
     }
 
     try {
