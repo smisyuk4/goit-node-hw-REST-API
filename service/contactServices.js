@@ -19,16 +19,33 @@ const createContact = ({ name, email, phone, favorite }, owner) => {
   return Contacts.create({ name, email, phone, favorite, owner })
 }
 
-const updateContact = (contactId, body, owner) => {
-  return Contacts.findOneAndUpdate({ _id: contactId, owner }, body, { new: true })
+const updateContact = async (contactId, body, owner) => {
+  const contact = await Contacts.findOneAndUpdate({ _id: contactId, owner }, body, { new: true })
+
+  if (!contact){
+    throw new WrongParametersError(`Not found`)
+  }
+
+  return contact
 }
 
-const updateStatusContact = (contactId, favorite, owner) => {
-  return Contacts.findOneAndUpdate({ _id: contactId, owner }, favorite, { new: true })
+const updateStatusContact = async (contactId, favorite, owner) => {
+  const contact = await Contacts.findOneAndUpdate({ _id: contactId, owner }, favorite, { new: true })
+
+  if (!contact){
+    throw new WrongParametersError(`Not found`)
+  }
+  return contact
 }
 
-const removeContact = (contactId, owner) => {
-  return Contacts.findOneAndRemove({ _id: contactId, owner })
+const removeContact = async (contactId, owner) => {
+  const contact = await Contacts.findOneAndRemove({ _id: contactId, owner })
+
+  if (!contact){
+    throw new WrongParametersError(`Not found`)
+  }
+
+  return contact
 }
 
 module.exports = {

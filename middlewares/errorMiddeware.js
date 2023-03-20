@@ -1,7 +1,6 @@
 const { ValidationError, WrongParametersError } = require('../helpers/error')
 
 const errorMiddleware = (error, req, res, next) => {
-    console.log(error instanceof WrongParametersError)
     if (
         error instanceof ValidationError ||
         error instanceof WrongParametersError
