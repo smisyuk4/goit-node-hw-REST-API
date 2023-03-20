@@ -1,11 +1,18 @@
 const Contacts = require('./schemas/contacts')
+const { WrongParametersError } = require('../helpers/error')
 
 const getAllContacts = async (owner) => {
   return Contacts.find({ owner })
 }
 
-const getContactById = (contactId, owner) => {
-  return Contacts.findOne({ _id: contactId, owner })
+const getContactById = async (contactId, owner) => {
+  const contact = await Contacts.findOne({ _id: contactId, owner })
+
+  if (!contact){
+    throw new WrongParametersError(`Not found contact id: ${contactId}`)
+  }
+
+  return contact
 }
 
 const createContact = ({ name, email, phone, favorite }, owner) => {
