@@ -1,21 +1,19 @@
 const User = require('./schemas/users')
-const { NotAuthorizedError } = require('../helpers/error')
 
-
-const registerUser = ({ email, password, subscription }) => {
+const createUser = ({ email, password, subscription }) => {
   return User.create({ email, password, subscription })
 }
 
-const loginUser = async ({ email }) => {
-  const user = await User.findOne({ email })
+const findUser = ({ email }) => {
+  return User.findOne({ email })
+}
 
-  if (!user){
-    throw new NotAuthorizedError(`Not authorized`)
-  }
-  return user
+const updateUser = (email, token) => {
+  return User.findOneAndUpdate({ email }, { token }, { new: true })
 }
 
 module.exports = {
-  registerUser,
-  loginUser,
+  createUser,
+  findUser,
+  updateUser,
 }

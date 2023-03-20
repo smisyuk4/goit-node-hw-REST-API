@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 
 const authMiddleware = async (req, res, next) =>{
     // eslint-disable-next-line no-unused-vars
-    const [ tokenType, token ] = req.headers.authorization.split(' ')
+    const [ tokenType, token ] = req.headers.authorization.split(' ');
 
     if(!token){
         return res.status(401).json({
