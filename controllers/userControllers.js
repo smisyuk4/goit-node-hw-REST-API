@@ -5,31 +5,28 @@ require('dotenv').config();
 const { registerUser, loginUser } = require('../service/userServices')
 
 const { userValidSchema } = require('../service/schemas/userValidSchema')
+const { ValidationError, ConflictError } = require('../helpers/error')
 
-const register = async (req, res, next) => {
+const register = async (req, res) => {
     const { email, password, subscription } = req.body
   
     const { error } = userValidSchema.validate(req.body, { context: { requestMethod: req.method } });
-  
+
     if (error){
-        return res.status(400).json({
-            Status: 'error',
-            Code: 400,
-            Message: error.details[0].message,
-        })  
+        throw new ValidationError(error.details[0].message)
     }
 
     try{
         const result = await registerUser({ email, password, subscription })
+    
         res.status(201).json({
             Status: 'created',
             Code: 201,
             ResponseBody: { user: result },
-        })
+        }) 
     } catch (error){
-        console.error(error)
-        next(error)     
-    } 
+        throw new ConflictError(`Email in use`)
+    }
 }
 
 const login = async (req, res, next) => {
