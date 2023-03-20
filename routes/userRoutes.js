@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const userCtrl = require('../controllers/userControllers');
-// const { authMiddleware } =  require('../middlewares/authMiddleware')
-const { asyncWrapper } = require('../helpers/asyncWrapper')
 
-// router.use(authMiddleware)
+const { asyncWrapper } = require('../helpers/asyncWrapper')
 
 router.post('/register', asyncWrapper(userCtrl.register));
 

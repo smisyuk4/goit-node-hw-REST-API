@@ -7,11 +7,11 @@ const authMiddleware = async (req, res, next) =>{
     const [ tokenType, token ] = authorization.split(' ')
 
     if(tokenType !== "Bearer"){
-        throw new NotAuthorizedError(`Not authorized`)
+        next(new NotAuthorizedError(`Not authorized`))
     }
 
     if(!token){
-        throw new NotAuthorizedError(`Not authorized`)
+        next(new NotAuthorizedError(`Not authorized`))
     }
 
     try {
