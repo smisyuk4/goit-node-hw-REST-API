@@ -4,8 +4,8 @@ const createUser = ({ email, password, subscription }) => {
   return User.create({ email, password, subscription })
 }
 
-const findUser = ({ email }) => {
-  return User.findOne({ email })
+const findUser = (query) => {
+  return User.findOne(query)
 }
 
 const updateUser = (email, token) => {
