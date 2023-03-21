@@ -1,8 +1,9 @@
 ## Routes auth
-POST `/users/register` - створити користувача
-POST `/users/login` - увійти
-POST `/users/logout` - вийти
-POST `/users/current` - поточний користувач
+POST `/users/register` - створити користувача (обов`язково пароль та пошта, можна вказати план. За змовчуванням starter)
+POST `/users/login` - увійти (обов`язково пароль та пошта). Отримаємо токен
+POST `/users/logout` - вийти (обов`язково токен)
+POST `/users/current` - поточний користувач (обов`язково токен)
+PATCH `/users/change` - оновити інформацію користувача (обов`язково пароль, пошта, токен)
 
 ## Routes contacts
 GET `/api/contacts/` - взяти всі контакти

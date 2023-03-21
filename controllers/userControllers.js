@@ -27,7 +27,15 @@ const register = async (req, res) => {
             }},
         }) 
     } catch (error){
-        throw new ConflictError(`Email in use`)
+        if(error.message.includes('email')){
+            throw new ConflictError(`Email in use`)
+        }
+
+        if(error.message.includes('subscription')){
+            throw new ConflictError(`Subscription value is not correct`)
+        }
+        
+        throw new ConflictError(error.message)
     }
 }
 
@@ -84,4 +92,33 @@ const current = async (req, res) => {
     }) 
 }
 
-module.exports = { register, login, logout, current }
+const change = async (req, res) => {
+    const { _id } = req.user
+    const { subscription } = req.body
+    const { error } = userValidSchema.validate(req.body, { context: { requestMethod: req.method } });
+
+    if (error){
+        throw new ValidationError(error.details[0].message)
+    }
+
+    const isValidSubscribe = ["starter", "pro", "business"].find(item => item === subscription)
+
+    if (!isValidSubscribe){
+        throw new ConflictError(`Subscription value is not correct`)
+    }
+
+    const result = await updateUser({ _id }, { subscription })
+
+    res.status(200).json({
+        Status: 'OK',
+        Code: 200,
+        ResponseBody: { 
+            user: {
+                email: result.email,
+                subscription: result.subscription,
+            } 
+        },
+    })
+}
+
+module.exports = { register, login, logout, current, change }

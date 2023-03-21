@@ -13,4 +13,6 @@ router.post('/logout', authMiddleware, asyncWrapper(userCtrl.logout));
 
 router.post('/current', authMiddleware, asyncWrapper(userCtrl.current));
 
+router.patch('/change', authMiddleware, asyncWrapper(userCtrl.change));
+
 module.exports = { userRouter: router };
