@@ -1,6 +1,8 @@
 ## Routes auth
 POST `/users/register` - створити користувача
 POST `/users/login` - увійти
+POST `/users/logout` - вийти
+POST `/users/current` - поточний користувач
 
 ## Routes contacts
 GET `/api/contacts/` - взяти всі контакти
