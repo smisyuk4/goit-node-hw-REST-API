@@ -1,8 +1,8 @@
 const Contacts = require('./schemas/contacts')
 const { WrongParametersError } = require('../helpers/error')
 
-const getAllContacts = async (owner) => {
-  return Contacts.find({ owner })
+const getAllContacts = async (owner, skip, limit ) => {
+  return Contacts.find({ owner }, "", { skip, limit })
 }
 
 const getContactById = async (contactId, owner) => {
