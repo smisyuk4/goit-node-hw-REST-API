@@ -50,7 +50,7 @@ const login = async (req, res) => {
         _id: user.id
     }, process.env.JWT_SECRET);
 
-    const result = await updateUser(email, token)
+    const result = await updateUser({ email }, { token })
 
     res.status(200).json({
         Status: 'OK',
@@ -65,4 +65,10 @@ const login = async (req, res) => {
     })
 }
 
-module.exports = { register, login }
+const logout = async (req, res) => {
+    const { _id } = req.user
+    await updateUser({ _id }, { token: null })
+    res.status(204).json()
+}
+
+module.exports = { register, login, logout }

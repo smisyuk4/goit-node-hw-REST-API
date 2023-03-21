@@ -9,12 +9,12 @@ const authMiddleware = async (req, res, next) =>{
     if(tokenType !== "Bearer"){
         next(new NotAuthorizedError(`Not authorized`))
     }
-    
+
     try {
         const { _id }  = await jwt.decode(token, process.env.JWT_SECRET)
         const user = await findUser({ _id })
 
-        if(!user){
+        if(!user || !user.token){
             next(new NotAuthorizedError(`Not authorized`))
         }
 

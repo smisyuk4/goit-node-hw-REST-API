@@ -4,12 +4,12 @@ const createUser = ({ email, password, subscription }) => {
   return User.create({ email, password, subscription })
 }
 
-const findUser = (query) => {
-  return User.findOne(query)
+const findUser = (conditions) => {
+  return User.findOne(conditions)
 }
 
-const updateUser = (email, token) => {
-  return User.findOneAndUpdate({ email }, { token }, { new: true })
+const updateUser = (conditions, update) => {
+  return User.findOneAndUpdate(conditions, update, { new: true })
 }
 
 module.exports = {
