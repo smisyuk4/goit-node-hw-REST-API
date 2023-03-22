@@ -9,7 +9,12 @@ const findUser = (conditions) => {
 }
 
 const updateUser = (conditions, update) => {
-  return User.findOneAndUpdate(conditions, update, { new: true })
+  const option = {
+    new: true,
+    runValidators: true,
+  }
+
+  return User.findOneAndUpdate(conditions, update, option)
 }
 
 module.exports = {

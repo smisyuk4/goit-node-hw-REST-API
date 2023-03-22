@@ -96,29 +96,35 @@ const change = async (req, res) => {
     const { _id } = req.user
     const { subscription } = req.body
     const { error } = userValidSchema.validate(req.body, { context: { requestMethod: req.method } });
-
+   
     if (error){
         throw new ValidationError(error.details[0].message)
     }
 
-    const isValidSubscribe = ["starter", "pro", "business"].find(item => item === subscription)
-
-    if (!isValidSubscribe){
-        throw new ConflictError(`Subscription value is not correct`)
+    if (!subscription){
+        throw new ConflictError(`Subscription value is missing`)
     }
 
-    const result = await updateUser({ _id }, { subscription })
+    try{
+        const result = await updateUser({ _id }, { subscription })
 
-    res.status(200).json({
-        Status: 'OK',
-        Code: 200,
-        ResponseBody: { 
-            user: {
-                email: result.email,
-                subscription: result.subscription,
-            } 
-        },
-    })
+        res.status(200).json({
+            Status: 'OK',
+            Code: 200,
+            ResponseBody: { 
+                user: {
+                    email: result.email,
+                    subscription: result.subscription,
+                } 
+            },
+        })
+    } catch(error) {
+        if(error.message.includes('enum value')){
+            throw new ConflictError(`Subscription value is not correct`)
+        }
+        
+        throw new ConflictError(error.message)
+    }
 }
 
 module.exports = { register, login, logout, current, change }

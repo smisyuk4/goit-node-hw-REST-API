@@ -3,7 +3,6 @@ const Joi = require('joi');
 const userValidSchema = Joi.object({
     password: Joi.string()
         .empty('')
-        .trim()
         .min(6)
         .max(30)
         .required()
@@ -15,7 +14,6 @@ const userValidSchema = Joi.object({
 
     email: Joi.string()
         .empty('')
-        .trim()
         .min(6)
         .max(30)
         .email()
@@ -28,12 +26,7 @@ const userValidSchema = Joi.object({
           }),
 
     subscription: Joi.string()
-    // спочатку робить валідацію монгус, а потім джой. Вилітає постійно помилка 409
-
-    //     .allow("starter", "pro", "business")
-    //     .messages({
-    //         'string.allow': `subscription field not valid`
-    //       }),
+    .empty('')
 })
 
 module.exports = {
