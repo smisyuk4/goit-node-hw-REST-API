@@ -3,27 +3,27 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 require('dotenv').config();
 
+const { contactRouter } = require('./routes/contactRoutes')
+const { userRouter } = require('./routes/userRoutes')
+const { errorMiddleware } = require('./middlewares/errorMiddeware')
+
 const app = express()
 app.use(express.json())
 app.use(cors())
 
-const { contactRouter } = require('./routes/contactRoutes')
 app.use('/api/contacts', contactRouter)
-
-const { userRouter } = require('./routes/userRoutes')
 app.use('/users', userRouter)
 
-const { errorMiddleware } = require('./middlewares/errorMiddeware')
-app.use(errorMiddleware)
+app.use((_, res, __) => {
+  res.status(404).json({
+    status: 'error',
+    code: 404,
+    message: 'Use api on routes: /api/contacts',
+    data: 'Not found',
+  });
+});
 
-// app.use((_, res, __) => {
-//   res.status(404).json({
-//     status: 'error',
-//     code: 404,
-//     message: 'Use api on routes:',
-//     data: 'Not found',
-//   });
-// });
+app.use(errorMiddleware)
 
 const PORT = process.env.PORT || 3000;
 const uriDb = process.env.MONGO_URI;
