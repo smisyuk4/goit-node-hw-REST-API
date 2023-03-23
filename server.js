@@ -3,12 +3,16 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 require('dotenv').config();
 
+const { contactRouter } = require('./routes/contactRoutes')
+const { userRouter } = require('./routes/userRoutes')
+const { errorMiddleware } = require('./middlewares/errorMiddeware')
+
 const app = express()
 app.use(express.json())
 app.use(cors())
 
-const routerApi = require('./api')
-app.use('/api/contacts', routerApi)
+app.use('/api/contacts', contactRouter)
+app.use('/users', userRouter)
 
 app.use((_, res, __) => {
   res.status(404).json({
@@ -19,15 +23,7 @@ app.use((_, res, __) => {
   });
 });
 
-app.use((err, _, res, __) => {
-  console.log(err.stack);
-  res.status(500).json({
-    status: 'fail',
-    code: 500,
-    message: err.message,
-    data: 'Internal Server Error',
-  });
-});
+app.use(errorMiddleware)
 
 const PORT = process.env.PORT || 3000;
 const uriDb = process.env.MONGO_URI;
