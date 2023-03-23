@@ -12,12 +12,14 @@ const { ValidationError } = require('../helpers/error')
 const get = async (req, res) => {
   const { _id: owner } = req.user
 
-  // pagination
-  const { page = 1, limit = 5 } = req.query
+  // pagination and filter
+  const { page = 1, limit = 5, favorite } = req.query
   const skip = (page - 1) * limit
 
-
-  const results = await getAllContacts(owner, skip, limit)
+  const condition = favorite ? { owner, favorite } : { owner }
+  const pagination = { skip, limit }
+  
+  const results = await getAllContacts(condition, pagination)
 
   res.json({
     status: 'Success',

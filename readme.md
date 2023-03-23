@@ -16,6 +16,9 @@ PATCH `/api/contacts/:contactId/favorite` - змінити статус конт
 ## Pagination
 GET `/api/contacts?page=1&limit=5` - взяти 5 контактів (кількість за змовчуванням) на першій сторінці 
 
+## Filter
+GET `/api/contacts/?favorite=false` взяти контакти по полю favorite зі значенням false
+
 ## Команди:
 - `npm start` &mdash; старт сервера в режимі production
 - `npm run start:dev` &mdash; старт сервера в режимі розробки (development)
