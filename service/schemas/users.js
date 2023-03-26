@@ -15,6 +15,10 @@ const userSchema = new Schema({
     required: [true, 'Email is required'],
     unique: true,
   },
+  avatarURL: {
+    type: String,
+    required: [true, 'avatarURL is required']
+  },
   subscription: {
     type: String,
     trim: true,
