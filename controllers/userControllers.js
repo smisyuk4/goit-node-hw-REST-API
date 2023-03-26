@@ -1,11 +1,15 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const gravatar = require('gravatar');
+const path = require('path')
+const fs = require('fs/promises')
 
 const { createUser, findUser, updateUser} = require('../service/userServices')
 
 const { userValidSchema } = require('../service/schemas/userValidSchema')
 const { ValidationError, ConflictError, NotAuthorizedError } = require('../helpers/error')
+const { User } = require('../service/schemas/users')
 
 const register = async (req, res) => {
     const { email, password, subscription } = req.body
@@ -16,7 +20,8 @@ const register = async (req, res) => {
     }
 
     try{
-        const result = await createUser({ email, password, subscription })
+        const avatarURL = await gravatar.url(email);
+        const result = await createUser({ email, password, avatarURL, subscription })
     
         res.status(201).json({
             Status: 'created',
@@ -127,4 +132,27 @@ const change = async (req, res) => {
     }
 }
 
-module.exports = { register, login, logout, current, change }
+const updateAvatar = async (req, res) => {
+    const avatarsDir = path.join(__dirname, "../../", "public", "avatars")
+    const { path: tempUpload, originalname } = req.file
+
+    try{
+        const resultUpload = path.join(avatarsDir, originalname)
+        await fs.rename(tempUpload, resultUpload)
+        const avatarURL = path.join("public", "avatars", originalname)
+        const result = await User.findByIdAndUpdate(req.user._id, { avatarURL })
+
+        res.status(200).json({
+            Status: 'OK',
+            Code: 200,
+            ResponseBody: { 
+                avatarURL: result.avatarURL
+            },
+        })
+    } catch (error){
+        await fs.unlink(tempUpload)
+        throw error
+    }
+}
+
+module.exports = { register, login, logout, current, change, updateAvatar}
