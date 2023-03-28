@@ -33,9 +33,9 @@
 - `git branch -d hw02-express` - видаляє цю гілку (треба знаходитись на головній)
 
 ## Validation data:
-- `JOI` - [https://joi.dev/api/?v=17.8.1]
+- `JOI` - [https://joi.dev/api/?v=17.8.1](https://joi.dev/api/?v=17.8.1)
 - `Solution switch schema` - [https://stackoverflow.com/questions/59861503/joi-validator-conditional-schema]
-*** npm i joi ***
+```npm i joi```
 
 ## Data base
 - `MONGODB`
