@@ -24,44 +24,45 @@
 - `npm start` &mdash; старт сервера в режимі production
 - `npm run start:dev` &mdash; старт сервера в режимі розробки (development)
 - `npm run lint` &mdash; запустити виконання перевірки коду з eslint, необхідно виконувати перед кожним PR та виправляти всі помилки лінтера
-- `npm lint:fix` &mdash; та ж перевірка лінтера, але з автоматичними виправленнями простих помилок
+- `npm run lint:fix` &mdash; та ж перевірка лінтера, але з автоматичними виправленнями простих помилок
 
 ## Git commands:
 - `git checkout -b hw02-express` - створює нову гілку
 - `git checkout hw02-express` - перемикає на цю гілку
 - `git push oririn hw02-express` - відправляє локальні зміни на цю гілку
+- `git branch -d hw02-express` - видаляє цю гілку (треба знаходитись на головній)
 
 ## Validation data:
 - `JOI` - [https://joi.dev/api/?v=17.8.1]
 - `Solution switch schema` - [https://stackoverflow.com/questions/59861503/joi-validator-conditional-schema]
-npm i joi
+*** npm i joi ***
 
 ## Data base
 - `MONGODB`
-npm i mongodb
+*** npm i mongodb ***
 
 ## Data base driver
 - `mongoose` - [https://mongoosejs.com/docs/schematypes.html#objectids]
-npm i mongoose
+*** npm i mongoose *** 
 
 ## JWT
 - `bcrypt` - [https://www.npmjs.com/package/bcrypt]
-npm i bcrypt
+*** npm i bcrypt *** 
 - `jsonwebtoken` - [https://www.npmjs.com/package/jsonwebtoken]
-npm i jsonwebtoken
+*** npm i jsonwebtoken *** 
 
 ## Middleware for handling multipart/form-data
 - `multer` - [https://www.npmjs.com/package/multer], [https://github.com/expressjs/multer]
-npm i multer
+*** npm i multer *** 
 
 ## Generator avatar URLs
 - `gravatar` - [https://www.npmjs.com/package/gravatar]
-npm i gravatar
+*** npm i gravatar *** 
 
 ## Editor images
 - `jimp` - [https://www.npmjs.com/package/jimp], [https://github.com/jimp-dev/jimp/tree/main/packages/plugin-resize]
-npm i jimp
+*** npm i jimp *** 
 
 ## Tests
 - `jest` - [https://jestjs.io/uk/docs/getting-started]
-npm install --save-dev jest
+*** npm install --save-dev jest *** 
