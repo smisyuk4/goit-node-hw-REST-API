@@ -33,36 +33,36 @@
 - `git branch -d hw02-express` - видаляє цю гілку (треба знаходитись на головній)
 
 ## Validation data:
-- `JOI` - [https://joi.dev/api/?v=17.8.1](https://joi.dev/api/?v=17.8.1)
-- `Solution switch schema` - [https://stackoverflow.com/questions/59861503/joi-validator-conditional-schema]
+- `JOI` - [joi.dev](https://joi.dev/api/?v=17.8.1)
+- `Solution switch schema` - [stackoverflow.com/questions](https://stackoverflow.com/questions/59861503/joi-validator-conditional-schema)
 ```npm i joi```
 
 ## Data base
 - `MONGODB`
-*** npm i mongodb ***
+``` npm i mongodb ```
 
 ## Data base driver
-- `mongoose` - [https://mongoosejs.com/docs/schematypes.html#objectids]
-*** npm i mongoose *** 
+- `mongoose` - [mongoosejs.com](https://mongoosejs.com/docs/schematypes.html#objectids)
+``` npm i mongoose ``` 
 
 ## JWT
-- `bcrypt` - [https://www.npmjs.com/package/bcrypt]
-*** npm i bcrypt *** 
-- `jsonwebtoken` - [https://www.npmjs.com/package/jsonwebtoken]
-*** npm i jsonwebtoken *** 
+- `bcrypt` - [npmjs.com](https://www.npmjs.com/package/bcrypt)
+``` npm i bcrypt ``` 
+- `jsonwebtoken` - [npmjs.com](https://www.npmjs.com/package/jsonwebtoken)
+``` npm i jsonwebtoken ``` 
 
 ## Middleware for handling multipart/form-data
-- `multer` - [https://www.npmjs.com/package/multer], [https://github.com/expressjs/multer]
-*** npm i multer *** 
+- `multer` - [npmjs.com][https://www.npmjs.com/package/multer], [github.com](https://github.com/expressjs/multer)
+``` npm i multer ``` 
 
 ## Generator avatar URLs
-- `gravatar` - [https://www.npmjs.com/package/gravatar]
-*** npm i gravatar *** 
+- `gravatar` - [npmjs.com](https://www.npmjs.com/package/gravatar)
+``` npm i gravatar ``` 
 
 ## Editor images
-- `jimp` - [https://www.npmjs.com/package/jimp], [https://github.com/jimp-dev/jimp/tree/main/packages/plugin-resize]
-*** npm i jimp *** 
+- `jimp` - [npmjs.com](https://www.npmjs.com/package/jimp), [github.com](https://github.com/jimp-dev/jimp/tree/main/packages/plugin-resize)
+``` npm i jimp ``` 
 
 ## Tests
-- `jest` - [https://jestjs.io/uk/docs/getting-started]
-*** npm install --save-dev jest *** 
+- `jest` - [jestjs.io](https://jestjs.io/uk/docs/getting-started)
+``` npm install --save-dev jest ``` 
