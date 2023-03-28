@@ -1,4 +1,4 @@
-const User = require('./schemas/users')
+const { User } = require('./schemas/users')
 
 const createUser = ({ email, password, avatarURL, subscription }) => {
   return User.create({ email, password, avatarURL, subscription })

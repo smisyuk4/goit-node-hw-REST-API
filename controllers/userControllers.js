@@ -5,11 +5,9 @@ const gravatar = require('gravatar');
 const path = require('path')
 const fs = require('fs/promises')
 
-const { createUser, findUser, updateUser} = require('../service/userServices')
-
+const { createUser, findUser, updateUser } = require('../service/userServices')
 const { userValidSchema } = require('../service/schemas/userValidSchema')
 const { ValidationError, ConflictError, NotAuthorizedError } = require('../helpers/error')
-const { User } = require('../service/schemas/users')
 
 const register = async (req, res) => {
     const { email, password, subscription } = req.body
@@ -20,7 +18,7 @@ const register = async (req, res) => {
     }
 
     try{
-        const avatarURL = await gravatar.url(email);
+        const avatarURL = await gravatar.url(email, { d: 'identicon' });
         const result = await createUser({ email, password, avatarURL, subscription })
     
         res.status(201).json({
@@ -133,14 +131,12 @@ const change = async (req, res) => {
 }
 
 const updateAvatar = async (req, res) => {
-    const avatarsDir = path.join(__dirname, "../../", "public", "avatars")
-    const { path: tempUpload, originalname } = req.file
+    const { path: oldPath, originalname } = req.file
 
     try{
-        const resultUpload = path.join(avatarsDir, originalname)
-        await fs.rename(tempUpload, resultUpload)
-        const avatarURL = path.join("public", "avatars", originalname)
-        const result = await User.findByIdAndUpdate(req.user._id, { avatarURL })
+        const newPath = path.join("public", "avatars", originalname)
+        await fs.rename(oldPath, newPath)
+        const result = await updateUser(req.user._id, { avatarURL: newPath })
 
         res.status(200).json({
             Status: 'OK',
@@ -150,9 +146,9 @@ const updateAvatar = async (req, res) => {
             },
         })
     } catch (error){
-        await fs.unlink(tempUpload)
-        throw error
+        await fs.unlink(oldPath)
+        throw Error(error)
     }
 }
 
-module.exports = { register, login, logout, current, change, updateAvatar}
+module.exports = { register, login, logout, current, change, updateAvatar }

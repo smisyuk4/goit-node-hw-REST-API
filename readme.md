@@ -50,7 +50,7 @@ npm i bcrypt
 npm i jsonwebtoken
 
 ## Middleware for handling multipart/form-data
-- `multer` - [https://www.npmjs.com/package/multer]
+- `multer` - [https://www.npmjs.com/package/multer], [https://github.com/expressjs/multer]
 npm i multer
 
 ## Generator avatar URLs
