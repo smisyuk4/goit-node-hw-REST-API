@@ -58,7 +58,7 @@ npm i multer
 npm i gravatar
 
 ## Editor images
-- `jimp` - [https://www.npmjs.com/package/jimp]
+- `jimp` - [https://www.npmjs.com/package/jimp], [https://github.com/jimp-dev/jimp/tree/main/packages/plugin-resize]
 npm i jimp
 
 ## Tests

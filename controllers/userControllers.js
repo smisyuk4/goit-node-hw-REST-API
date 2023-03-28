@@ -8,6 +8,7 @@ const fs = require('fs/promises')
 const { createUser, findUser, updateUser } = require('../service/userServices')
 const { userValidSchema } = require('../service/schemas/userValidSchema')
 const { ValidationError, ConflictError, NotAuthorizedError } = require('../helpers/error')
+const { resizeImage } = require('../middlewares/resizeImageMiddleware')
 
 const register = async (req, res) => {
     const { email, password, subscription } = req.body
@@ -132,9 +133,14 @@ const change = async (req, res) => {
 
 const updateAvatar = async (req, res) => {
     const { path: oldPath, originalname } = req.file
+    const { _id: userId} = req.user
+
+    await resizeImage(oldPath)
+
+    const newImageName = `${userId}_${originalname}`
 
     try{
-        const newPath = path.join("public", "avatars", originalname)
+        const newPath = path.join("public", "avatars", newImageName)
         await fs.rename(oldPath, newPath)
         const result = await updateUser(req.user._id, { avatarURL: newPath })
 
