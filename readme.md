@@ -52,7 +52,7 @@
 ``` npm i jsonwebtoken ``` 
 
 ## Middleware for handling multipart/form-data
-- `multer` - [npmjs.com][https://www.npmjs.com/package/multer], [github.com](https://github.com/expressjs/multer)
+- `multer` - [npmjs.com](https://www.npmjs.com/package/multer), [github.com](https://github.com/expressjs/multer)
 ``` npm i multer ``` 
 
 ## Generator avatar URLs
