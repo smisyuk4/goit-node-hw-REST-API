@@ -1,11 +1,14 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const gravatar = require('gravatar');
+const path = require('path')
+const fs = require('fs/promises')
 
-const { createUser, findUser, updateUser} = require('../service/userServices')
-
+const { createUser, findUser, updateUser } = require('../service/userServices')
 const { userValidSchema } = require('../service/schemas/userValidSchema')
 const { ValidationError, ConflictError, NotAuthorizedError } = require('../helpers/error')
+const { resizeImage } = require('../middlewares/resizeImageMiddleware')
 
 const register = async (req, res) => {
     const { email, password, subscription } = req.body
@@ -16,7 +19,8 @@ const register = async (req, res) => {
     }
 
     try{
-        const result = await createUser({ email, password, subscription })
+        const avatarURL = await gravatar.url(email, { d: 'identicon' });
+        const result = await createUser({ email, password, avatarURL, subscription })
     
         res.status(201).json({
             Status: 'created',
@@ -127,4 +131,30 @@ const change = async (req, res) => {
     }
 }
 
-module.exports = { register, login, logout, current, change }
+const updateAvatar = async (req, res) => {
+    const { path: oldPath, originalname } = req.file
+    const { _id: userId} = req.user
+
+    await resizeImage(oldPath)
+
+    const newImageName = `${userId}_${originalname}`
+
+    try{
+        const newPath = path.join("public", "avatars", newImageName)
+        await fs.rename(oldPath, newPath)
+        const result = await updateUser(req.user._id, { avatarURL: newPath })
+
+        res.status(200).json({
+            Status: 'OK',
+            Code: 200,
+            ResponseBody: { 
+                avatarURL: result.avatarURL
+            },
+        })
+    } catch (error){
+        await fs.unlink(oldPath)
+        throw Error(error)
+    }
+}
+
+module.exports = { register, login, logout, current, change, updateAvatar }
