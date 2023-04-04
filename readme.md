@@ -63,6 +63,11 @@
 - `jimp` - [npmjs.com](https://www.npmjs.com/package/jimp), [github.com](https://github.com/jimp-dev/jimp/tree/main/packages/plugin-resize)
 ``` npm i jimp ``` 
 
+## Send email
+- `mailtrap` - [mailtrap.io](https://mailtrap.io/)
+- `nodemailer` - [nodemailer.com](https://nodemailer.com/about/)
+```npm i nodemailer```
+
 ## Tests
 - `jest` - [jestjs.io](https://jestjs.io/uk/docs/getting-started)
 ``` npm install --save-dev jest ``` 
