@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
 const Schema = mongoose.Schema;
 
@@ -29,7 +29,17 @@ const userSchema = new Schema({
     type: String, 
     default: null
   },
-});
+  verify: {
+    type: Boolean,
+    default: false,
+  },
+  verificationToken: {
+    type: String,
+    required: [true, 'Verify token is required'],
+  },
+},
+{versionKey: false, timestamps: true}
+);
 
 userSchema.pre('save', async function() {
   if(this.isNew){

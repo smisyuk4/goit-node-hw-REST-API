@@ -5,6 +5,8 @@
 - POST `/users/current` - поточний користувач (обов`язково токен)
 - PATCH `/users/change` - оновити інформацію користувача (обов`язково пароль, пошта, токен)
 - PATCH `/users/avatars` - оновити інформацію користувача (завантажити аватарку)
+- GET `/users/verify/:verificationToken` - відправляється токен верифікації пошти користувача
+- POST `/users/verify` - повторна відправка листа з верифікацією пошти (обов`язково пошта)
 
 ## Routes contacts
 - GET `/api/contacts/` - взяти всі контакти
@@ -65,6 +67,8 @@
 
 ## Send email
 - `mailtrap` - [mailtrap.io](https://mailtrap.io/)
+- `nanoId` - [npmjs.com](https://www.npmjs.com/package/nanoid)
+```npm i nanoid@^3.0.0```
 - `nodemailer` - [nodemailer.com](https://nodemailer.com/about/)
 ```npm i nodemailer```
 
