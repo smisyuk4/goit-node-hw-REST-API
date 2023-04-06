@@ -29,9 +29,10 @@ app.use(errorMiddleware)
 const PORT = process.env.PORT || 3000;
 const uriDb = process.env.MONGO_URI;
 
-const connection = mongoose.connect(uriDb, {
-  dbName: 'db-contacts',
-});
+// const connection = mongoose.connect(uriDb, {
+//   dbName: 'db-contacts',
+// });
+const connection = mongoose.connect(uriDb)
 mongoose.Promise = global.Promise;
 
 connection
