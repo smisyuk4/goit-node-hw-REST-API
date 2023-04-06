@@ -29,18 +29,24 @@ app.use(errorMiddleware)
 const PORT = process.env.PORT || 3000;
 const uriDb = process.env.MONGO_URI;
 
+mongoose.connect(uriDb)
+app.listen(PORT, function () {
+        console.log(`Server running. Use our API on port: ${PORT}`);
+      });
+
+
 // const connection = mongoose.connect(uriDb, {
 //   dbName: 'db-contacts',
 // });
-const connection = mongoose.connect(uriDb)
-mongoose.Promise = global.Promise;
+// const connection = mongoose.connect(uriDb)
+// mongoose.Promise = global.Promise;
 
-connection
-  .then(() => {
-    app.listen(PORT, function () {
-      console.log(`Server running. Use our API on port: ${PORT}`);
-    });
-  })
-  .catch(err =>
-    console.log(`Server not running. Error message: ${err.message}`),
-  );
+// connection
+//   .then(() => {
+//     app.listen(PORT, function () {
+//       console.log(`Server running. Use our API on port: ${PORT}`);
+//     });
+//   })
+//   .catch(err =>
+//     console.log(`Server not running. Error message: ${err.message}`),
+//   );
