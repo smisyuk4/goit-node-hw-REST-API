@@ -17,5 +17,9 @@ router.patch('/change', authMiddleware, asyncWrapper(userCtrl.change));
 
 router.patch('/avatars', authMiddleware, upload.single('avatar'), asyncWrapper(userCtrl.updateAvatar));
 
+router.get('/verify/:verificationToken', asyncWrapper(userCtrl.verifyEmail))
+
+router.post('/verify', asyncWrapper(userCtrl.resendVerifyEmail))
+
 
 module.exports = { userRouter: router };

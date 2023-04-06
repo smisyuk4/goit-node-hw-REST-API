@@ -4,11 +4,13 @@ require('dotenv').config();
 const gravatar = require('gravatar');
 const path = require('path')
 const fs = require('fs/promises')
+const { nanoid } = require('nanoid')
 
 const { createUser, findUser, updateUser } = require('../service/userServices')
-const { userValidSchema } = require('../service/schemas/userValidSchema')
-const { ValidationError, ConflictError, NotAuthorizedError } = require('../helpers/error')
+const { userValidSchema, userVerifyEmail } = require('../service/schemas/userValidSchema')
+const { ValidationError, ConflictError, NotAuthorizedError, WrongParametersError } = require('../helpers/error')
 const { resizeImage } = require('../middlewares/resizeImageMiddleware')
+const { sendEmail } = require('../helpers/sendEmail')
 
 const register = async (req, res) => {
     const { email, password, subscription } = req.body
@@ -20,7 +22,16 @@ const register = async (req, res) => {
 
     try{
         const avatarURL = await gravatar.url(email, { d: 'identicon' });
-        const result = await createUser({ email, password, avatarURL, subscription })
+        const verificationToken = nanoid()
+        const result = await createUser({ email, password, avatarURL, subscription, verificationToken })
+
+        const verifyEmail = {
+            to: email,
+            subject: "Verify email",
+            html: `<a target="_blank" href="${process.env.BASE_URL}/users/verify/${verificationToken}">Click verify email</a>`,
+        }
+
+        await sendEmail(verifyEmail)
     
         res.status(201).json({
             Status: 'created',
@@ -43,6 +54,60 @@ const register = async (req, res) => {
     }
 }
 
+const verifyEmail = async (req, res) => {
+    const { verificationToken } = req.params
+  
+    const user = await findUser({ verificationToken })
+
+    if(!user){
+        throw new WrongParametersError(`User not found`)
+    }
+
+    await updateUser( user._id , { verify: true, verificationToken: ' ' })
+
+    res.status(200).json({
+        Status: 'OK',
+        Code: 200,
+        ResponseBody: { 
+            message: 'Verification successful'
+        },
+    })
+}
+
+const resendVerifyEmail = async (req, res) => {
+    const { email } = req.body
+    const { error } = userVerifyEmail.validate(req.body, { context: { requestMethod: req.method } });
+  
+    if (error){
+        throw new ValidationError(error.details[0].message)
+    }
+
+    const user = await findUser({ email })
+    if (!user) {
+        throw new NotAuthorizedError(`Email is wrong`)
+    }
+
+    if(user.verify){
+        throw new Error(`Verification has already been passed`)
+    }
+
+    const verifyEmail = {
+        to: email,
+        subject: "Verify email",
+        html: `<a target="_blank" href="${process.env.BASE_URL}/users/verify/${user.verificationToken}">Click verify email</a>`,
+    }
+
+    await sendEmail(verifyEmail)
+
+    res.status(200).json({
+        Status: 'OK',
+        Code: 200,
+        ResponseBody: { 
+            message: 'Verification email sent'
+        },
+    })
+}
+
 const login = async (req, res) => {
     const { email, password } = req.body
     const { error } = userValidSchema.validate(req.body, { context: { requestMethod: req.method } });
@@ -56,6 +121,10 @@ const login = async (req, res) => {
 
     if (!user || !isInBase) {
         throw new NotAuthorizedError(`Email or password is wrong`)
+    }
+
+    if (!user.verify){
+        throw new NotAuthorizedError(`Email not verified`)
     }
 
     const token = jwt.sign({
@@ -157,4 +226,4 @@ const updateAvatar = async (req, res) => {
     }
 }
 
-module.exports = { register, login, logout, current, change, updateAvatar }
+module.exports = { register, verifyEmail, resendVerifyEmail, login, logout, current, change, updateAvatar }
