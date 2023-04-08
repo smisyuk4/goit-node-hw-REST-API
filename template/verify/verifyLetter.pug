@@ -1,0 +1,51 @@
+doctype html
+head
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='Content-Type' content='text/html; charset=UTF-8')
+    title Verify email
+ 
+include _style
+
+table.body(role='presentation' border='0' cellpadding='0' cellspacing='0')
+    tr
+        td
+        td.container
+            .content
+                // START CENTERED WHITE CONTAINER
+                table.main(role='presentation')
+                    // START MAIN CONTENT AREA
+                    tr
+                        td.wrapper
+                            table(role='presentation' border='0' cellpadding='0' cellspacing='0')
+                                tr
+                                    td
+                                        p Hi #{name},
+                                        p You have registered in the phonebook app. 
+                                        | To continue, press the button
+                                        
+                                        table.btn.btn-primary(role='presentation' border='0' cellpadding='0' cellspacing='0')
+                                            tbody
+                                                tr
+                                                    td(align='left')
+                                                        table(role='presentation' border='0' cellpadding='0' cellspacing='0')
+                                                            tbody
+                                                                tr
+                                                                    td
+                                                                        a(href=`${link}` target='_blank') Click verify email
+                                        p Good luck! Hope it works.
+                    // END MAIN CONTENT AREA
+                    // END CENTERED WHITE CONTAINER
+                    // START FOOTER
+                    .footer
+                        table(role='presentation' border='0' cellpadding='0' cellspacing='0')
+                            tr
+                                td.content-block
+                                    span.apple-link 
+                                    | My studies on the course  
+                                    a(href='https://goit.global/us/courses/fullstack/') fullstack
+                            tr
+                                td.content-block.powered-by
+                                    | Powered by 
+                                    a(href='https://www.linkedin.com/in/%D1%81%D0%B5%D1%80%D0%B3%D0%B5%D0%B9-%D0%BC%D0%B8%D1%81%D1%8E%D0%BA/') Sergiy Misyuk
+                    // END FOOTER
+    td

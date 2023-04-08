@@ -40,7 +40,7 @@
 ```npm i joi```
 
 ## Data base
-- `MONGODB`
+- `MONGODB` - [mongodb.com](https://www.mongodb.com/docs/guides/)
 ``` npm i mongodb ```
 
 ## Data base driver
@@ -67,10 +67,21 @@
 
 ## Send email
 - `mailtrap` - [mailtrap.io](https://mailtrap.io/)
-- `nanoId` - [npmjs.com](https://www.npmjs.com/package/nanoid)
-```npm i nanoid@^3.0.0```
+- `sendgrid/mail` - [sendgrid.com](https://sendgrid.com/)
+```npm i @sendgrid/mail```
 - `nodemailer` - [nodemailer.com](https://nodemailer.com/about/)
 ```npm i nodemailer```
+
+## Generator verification token
+- `nanoId` - [npmjs.com](https://www.npmjs.com/package/nanoid)
+```npm i nanoid@^3.0.0```
+
+## Template page html
+- `pug` - [pugjs.org](https://pugjs.org/api/getting-started.html)
+```npm i pug```
+
+## Deploy
+- `heroku` - [heroku.com](https://dashboard.heroku.com/)
 
 ## Tests
 - `jest` - [jestjs.io](https://jestjs.io/uk/docs/getting-started)

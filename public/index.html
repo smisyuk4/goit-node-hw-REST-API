@@ -7,6 +7,174 @@
     <title>phonebook-app</title>
 </head>
 <body>
-    <h1>hello</h1>
+    <h1>Node.js</h1>       
+    <h2>Phonebook</h2>       
+    <ul>        
+        <li><a href='https://github.com/smisyuk4/goit-node-hw-REST-API'>Github</a></li>
+        <li><a href='https://phonebook-app-sergiy.herokuapp.com/'>Connections-api</a></li>
+        <li><b>Usage:</b></li>
+        <ul>   
+            <li>express</li>
+            <li>mongodb</li>
+            <li>mongoose</li>
+            <li>morgan</li>
+            <li>multer</li>  
+            <li>cors</li>
+            <li>dotenv</li>
+            <li>fs</li>
+            <li>path</li>
+            <li>joi</li>
+            <li>sendgrid/mail</li>           
+            <li>nodemailer</li>  
+            <li>pug</li>
+            <li>html-to-text</li>
+            <li>bcrypt</li>
+            <li>jsonwebtoken</li>
+            <li>nanoid</li> 
+            <li>gravatar</li>
+            <li>jimp</li>
+        </ul>
+        <li><b>Resources:</b></li>
+        <ul>
+            <li>official docs</li>
+            <li>developer.mozilla.org</li>
+            <li>stackoverflow.com</li>     
+            <li>postman.co</li>        
+        </ul>
+    </ul>
+
+    <h3>Routes auth</h3> 
+    <table>
+        <thead>
+            <tr>
+                <th>Method</th>
+                <th>Path</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>POST</td>
+                <td>/users/register</td>
+                <td>створити користувача (обов`язково пароль та пошта, можна вказати план. За змовчуванням starter)</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>/users/login</td>
+                <td>увійти (обов`язково пароль та пошта). Отримаємо токен</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>/users/logout</td>
+                <td>вийти (обов`язково токен)</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>/users/current</td>
+                <td>поточний користувач (обов`язково токен)</td>
+            </tr>
+            <tr>
+                <td>PATCH</td>
+                <td>/users/change</td>
+                <td>оновити інформацію користувача (обов`язково пароль, пошта, токен)</td>
+            </tr>
+            <tr>
+                <td>PATCH</td>
+                <td>/users/avatars</td>
+                <td>оновити інформацію користувача (завантажити аватарку)</td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>/users/verify/:verificationToken</td>
+                <td>відправляється токен верифікації пошти користувача</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>/users/verify</td>
+                <td>повторна відправка листа з верифікацією пошти (обов`язково пошта)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Routes contacts</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Method</th>
+                <th>Path</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td>/api/contacts/</td>
+                <td>взяти всі контакти</td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>/api/contacts/:contactId</td>
+                <td>взяти один контакт по ід</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>/api/contacts/</td>
+                <td>створити контакт</td>
+            </tr>
+            <tr>
+                <td>PUT</td>
+                <td>/api/contacts/:contactId</td>
+                <td>оновити інформацію контакта по ід</td>
+            </tr>
+            <tr>
+                <td>DELETE</td>
+                <td>/api/contacts/:contactId</td>
+                <td>видалити контакт по ід</td>
+            </tr>
+            <tr>
+                <td>PATCH</td>
+                <td>/api/contacts/:contactId/favorite</td>
+                <td>змінити статус контакта по ід</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Pagination</h3> 
+    <table>
+        <thead>
+            <tr>
+                <th>Method</th>
+                <th>Path</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td>/api/contacts?page=1&limit=5</td>
+                <td>взяти 5 контактів (кількість за змовчуванням) на першій сторінці</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Filter</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Method</th>
+                <th>Path</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td>/api/contacts/?favorite=false</td>
+                <td>взяти контакти по полю favorite зі значенням false</td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>
