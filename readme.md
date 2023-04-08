@@ -79,6 +79,7 @@
 ## Template page html
 - `pug` - [pugjs.org](https://pugjs.org/api/getting-started.html)
 ```npm i pug```
+- `responsive HTML email template` - [github.com/leemunroe](https://github.com/leemunroe/responsive-html-email-template)
 
 ## Deploy
 - `heroku` - [heroku.com](https://dashboard.heroku.com/)
