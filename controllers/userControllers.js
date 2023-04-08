@@ -10,7 +10,7 @@ const { createUser, findUser, updateUser } = require('../service/userServices')
 const { userValidSchema, userVerifyEmail } = require('../service/schemas/userValidSchema')
 const { ValidationError, ConflictError, NotAuthorizedError, WrongParametersError } = require('../helpers/error')
 const { resizeImage } = require('../middlewares/resizeImageMiddleware')
-const { sendEmail } = require('../helpers/sendEmail')
+const { sendEmail } = require('../helpers/sendEmail');
 
 const register = async (req, res) => {
     const { email, password, subscription } = req.body
@@ -25,13 +25,7 @@ const register = async (req, res) => {
         const verificationToken = nanoid()
         const result = await createUser({ email, password, avatarURL, subscription, verificationToken })
 
-        const verifyEmail = {
-            to: email,
-            subject: "Verify email",
-            html: `<a target="_blank" href="${process.env.BASE_URL}/users/verify/${verificationToken}">Click verify email</a>`,
-        }
-
-        await sendEmail(verifyEmail)
+        await sendEmail(email, verificationToken)
     
         res.status(201).json({
             Status: 'created',
@@ -91,13 +85,7 @@ const resendVerifyEmail = async (req, res) => {
         throw new Error(`Verification has already been passed`)
     }
 
-    const verifyEmail = {
-        to: email,
-        subject: "Verify email",
-        html: `<a target="_blank" href="${process.env.BASE_URL}/users/verify/${user.verificationToken}">Click verify email</a>`,
-    }
-
-    await sendEmail(verifyEmail)
+    await sendEmail(email, user.verificationToken)
 
     res.status(200).json({
         Status: 'OK',
