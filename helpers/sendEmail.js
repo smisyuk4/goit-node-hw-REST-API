@@ -54,7 +54,7 @@ const sendEmail = async (address, verificationToken) => {
     });
 
     await emailTransport.sendMail(mail)
-    console.log(`Email sent to ${mail.to} from ${mail.from}`)
+    console.log(`Email sent to ${mail.to} from ${mail.from}, development`)
     return true
   }
 
@@ -62,7 +62,7 @@ const sendEmail = async (address, verificationToken) => {
     sgMail.setApiKey(SENDGRID_API_KEY);
 
     await sgMail.send(mail)
-    console.log(`Email sent to ${mail.to} from ${mail.from}`)
+    console.log(`Email sent to ${mail.to} from ${mail.from}, production`)
     return true
   }
 }
