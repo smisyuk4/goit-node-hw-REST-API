@@ -83,6 +83,9 @@
 
 ## Deploy
 - `heroku` - [heroku.com](https://dashboard.heroku.com/)
+- `git push heroku master` - відправити локальний код на heroku репозиторій
+- `heroku config:set PORT=2000` - відправити змінну у heroku ремозиторій
+- `heroku config` - перевірити список змінних у heroku
 
 ## Tests
 - `jest` - [jestjs.io](https://jestjs.io/uk/docs/getting-started)
